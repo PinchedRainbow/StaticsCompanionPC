@@ -2,6 +2,8 @@ import os
 import time
 import requests
 from flask import Flask, jsonify
+import urllib3
+urllib3.disable_warnings()
 
 data = []
 name = ""
@@ -15,6 +17,13 @@ entitelmentToken = ""
 
 # start the flask server
 app = Flask(__name__)
+
+import logging
+
+# New, 2022 Method:
+
+logging.getLogger('werkzeug').disabled = True
+
 
 @app.route("/")
 def send_message():
@@ -69,6 +78,7 @@ entitelmentToken = r.json()["token"]
 # if the tokens are not empty, start the server
 if (accessToken != "", entitelmentToken != ""):
     print("Server started! Enter the IP into Statics: " + ip_address)
+    print("You can now close this window!")
     app.run(host='0.0.0.0', port=5000)
     
 
