@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def send_message():
-    return jsonify({"accessToken": accessToken, "entitelmentToken": entitelmentToken})
+    return jsonify({"accessToken": accessToken, "entitlementToken": entitelmentToken})
 
 
 def getLockFile():
@@ -62,20 +62,13 @@ r = requests.get(f"https://127.0.0.1:{port}/entitlements/v1/token", auth=('riot'
 accessToken = r.json()["accessToken"]
 entitelmentToken = r.json()["token"]
 
+# # print out the tokens
 # print("Access Token: " + accessToken)
 # print("Entitelment Token: " + entitelmentToken)
-
-# # copy it to clipboard
-# import pyperclip
-# msg = "Access Token: " + accessToken + "\n\nEntitelment Token: " + entitelmentToken
-# pyperclip.copy(msg)
-
-# # tell user that the tokens have been copied to clipboard
-# print("Access Token and Entitelment Token have been copied to clipboard!")
 
 # if the tokens are not empty, start the server
 if (accessToken != "", entitelmentToken != ""):
     print("Server started! Enter the IP into Statics: " + ip_address)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
     
 
